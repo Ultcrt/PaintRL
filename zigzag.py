@@ -199,13 +199,13 @@ def profile_rgb_zigzag():
     pr.enable()
     simple_rgb_profile_zigzag()
     pr.disable()
-    pr.dump_stats('/home/pyang/profile_grid.pstat')
+    pr.dump_stats('/home/ultcrt/profile_grid.pstat')
 
 
 def show_profile_result():
     import pstats
 
-    ps = pstats.Stats('/home/pyang/profile.pstat')
+    ps = pstats.Stats('/home/ultcrt/profile.pstat')
     ps.strip_dirs().print_stats()
 
 

@@ -224,7 +224,7 @@ class PaintGymEnv(gym.Env):
         self._paint_color = (1, 0, 0)
 
         self._setup_bullet_params()
-        self._step_manager = StepManager(self, render_video, '/home/pyang/Videos/')
+        self._step_manager = StepManager(self, render_video, '/home/ultcrt/Videos/')
         self._load_environment()
         self.replay_buffer = []
 

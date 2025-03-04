@@ -8,7 +8,7 @@ from PaintRLEnv.param_test_env import ParamTestEnv
 def main(algorithm, config):
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, default='train')
-    parser.add_argument('--checkpoint', type=str, default='/home/pyang/ray_results/paint')
+    parser.add_argument('--checkpoint', type=str, default='/home/ultcrt/ray_results/paint')
     args = parser.parse_args()
 
     def env_creator(env_config):

@@ -126,7 +126,7 @@ def _make_env_config(is_train=True):
 def main(algorithm, config):
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, default='train')
-    parser.add_argument('--checkpoint', type=str, default='/home/pyang/ray_results/paint')
+    parser.add_argument('--checkpoint', type=str, default='/home/ultcrt/ray_results/paint')
     args = parser.parse_args()
 
     ModelCatalog.register_custom_model('paint_model', PaintModel)
