@@ -92,7 +92,7 @@ def _make_env_config(is_train=True):
             'RENDER_HEIGHT': 720,
             'RENDER_WIDTH': 960,
 
-            'Part_NO': 0,
+            'Part_NO': 1,
             'Expected_Episode_Length': 245,
             'EPISODE_MAX_LENGTH': 245,
 
