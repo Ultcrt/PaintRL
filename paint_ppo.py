@@ -168,7 +168,7 @@ def main(algorithm, config):
 
 if __name__ == '__main__':
     configuration = {
-        'num_workers': 15,
+        'num_workers': 19,
         'num_gpus': 1,
         'simple_optimizer': False,
 
