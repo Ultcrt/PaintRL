@@ -141,7 +141,7 @@ def main(algorithm, config):
             'run': algorithm,
             'env': 'robot_gym_env',
             'stop': {
-                'training_iteration': 100000,
+                'training_iteration': 10000,
                 # 'timesteps_total': 2000000,
             },
             'config': config,
@@ -167,9 +167,15 @@ def main(algorithm, config):
 
 
 if __name__ == '__main__':
+    num_workers = 19
+    num_gpus = 0.5
+    num_gpus_per_worker = (1 - num_gpus) / num_workers
+
     configuration = {
-        'num_workers': 19,
-        'num_gpus': 1,
+        'num_workers': num_workers,
+        'num_gpus': num_gpus,
+        'num_gpus_per_worker': num_gpus_per_worker,
+
         'simple_optimizer': False,
 
         # 'model': {
