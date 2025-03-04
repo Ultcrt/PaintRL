@@ -594,7 +594,7 @@ class Part:
         else:
             color = self._get_color((0, 0, 0))
             for point in target_pixels:
-                self.color_setter.change_pixel(color, *point)
+                self.color_setter.change_pixel(*point)
 
     def _build_kd_tree(self):
         """
