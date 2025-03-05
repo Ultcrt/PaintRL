@@ -127,6 +127,7 @@ def main(algorithm, config):
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, default='train')
     parser.add_argument('--checkpoint', type=str, default='/home/ultcrt/ray_results/paint')
+    parser.add_argument('--restore', type=str, default=None)
     args = parser.parse_args()
 
     ModelCatalog.register_custom_model('paint_model', PaintModel)
@@ -150,8 +151,12 @@ def main(algorithm, config):
     }
     experiment_config['paint']['config']['callbacks'] = call_backs
     if args.mode == 'train':
-        ray.init(object_store_memory=10 * 1024 * 1024 * 1024, redis_max_memory=5 * 1024 * 1024 * 1024, driver_object_store_memory=5 * 1024 * 1024 * 1024, log_to_driver=False)
+        if args.restore:
+            experiment_config['paint']['restore'] = args.restore
+
+        ray.init(object_store_memory=1 * 1024 * 1024 * 1024, redis_max_memory=1 * 1024 * 1024 * 1024, log_to_driver=False)
         # ray.init(redis_address="141.3.81.143:6379")
+        
         experiment_config['paint']['config']['env_config'] = _make_env_config()
         tune.run_experiments(experiment_config)
     else:
