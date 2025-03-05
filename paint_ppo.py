@@ -142,7 +142,7 @@ def main(algorithm, config):
             'env': 'robot_gym_env',
             'stop': {
                 'training_iteration': 10000,
-                # 'timesteps_total': 2000000,
+                'timesteps_total': 2000000,
             },
             'config': config,
             'checkpoint_freq': 200,
