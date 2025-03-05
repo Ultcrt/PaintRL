@@ -146,7 +146,7 @@ def main(algorithm, config):
                 'timesteps_total': 2000000,
             },
             'config': config,
-            'checkpoint_freq': 200,
+            'checkpoint_freq': 100,
         }
     }
     experiment_config['paint']['config']['callbacks'] = call_backs
@@ -156,7 +156,7 @@ def main(algorithm, config):
 
         ray.init(object_store_memory=1 * 1024 * 1024 * 1024, redis_max_memory=1 * 1024 * 1024 * 1024, log_to_driver=False)
         # ray.init(redis_address="141.3.81.143:6379")
-        
+
         experiment_config['paint']['config']['env_config'] = _make_env_config()
         tune.run_experiments(experiment_config)
     else:
