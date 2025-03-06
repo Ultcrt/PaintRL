@@ -365,6 +365,7 @@ class PaintGymEnv(gym.Env):
                 if done:
                     # Store the rollout results and print out.
                     print(self.replay_buffer)
+                    np.savetxt(os.path.join("predictions", str(self.robot.robot_id) + ".txt"), self.robot.traj)
         return observation, actual_reward, done,  {'reward': reward, 'penalty': penalty}
 
     def reset(self):

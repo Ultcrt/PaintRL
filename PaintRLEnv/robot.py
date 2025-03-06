@@ -173,6 +173,7 @@ class Robot:
 
     def __init__(self, step_manager, urdf_path, pos=(0, 0, 0), orn=(0, 0, 0, 1),
                  with_robot=True, capture_texture=False):
+        self.traj = []
 
         self.robot_id = 0
 
@@ -400,6 +401,8 @@ class Robot:
         act, poses = self._get_actions(part_id, delta_axis1, delta_axis2)
         possible_pixels = []
         succeeded_counter = 0
+        self.traj.append(np.hstack(list(poses.values())[0]))
+        self.traj.append(np.hstack(list(poses.values())[0]))
         for a, pos_orn in zip(act, poses.values()):
             if self._with_robot:
                 p.setJointMotorControlArray(self.robot_id, self._joint_indices, p.POSITION_CONTROL, a,
