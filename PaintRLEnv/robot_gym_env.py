@@ -273,7 +273,7 @@ class PaintGymEnv(gym.Env):
             p.loadURDF('plane.urdf', (0, 0, 0), useFixedBase=True)
         path = os.path.join(self._urdf_root, 'urdf', 'painting', self._part_name)
         self._part_id = p.loadURDF(path, (-0.4, -0.6, 0.25), useFixedBase=True, flags=p.URDF_ENABLE_SLEEPING)
-        p.load_part(self._part_id, self._renders, self.OBS_MODE, self.OBS_GRAD, self.COLOR_MODE, path,
+        p.load_part(self._part_id, self.OBS_MODE, self.OBS_GRAD, self.COLOR_MODE, path,
                     self._paint_side, self._paint_color)
 
         self._start_points = p.get_start_points(self._part_id, mode=self.START_POINT_MODE)

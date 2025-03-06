@@ -449,10 +449,9 @@ class Part:
     MODE_SIGN = {0: [1, 0], 1: [1, -1], 2: [0, -1], 3: [-1, -1],
                  4: [-1, 0], 5: [-1, 1], 6: [0, 1], 7: [1, 1]}
 
-    def __init__(self, urdf_id=-1, render=True, observation='section', obs_grad=10, color_mode='RGB',
+    def __init__(self, urdf_id=-1, observation='section', obs_grad=10, color_mode='RGB',
                  side=Side.front, color=(1, 0, 0)):
         self.urdf_id = urdf_id
-        self._render = render
         self._obs = observation
         self._obs_handler = None
         self._obs_grad = obs_grad
@@ -579,22 +578,18 @@ class Part:
     def _label_part(self):
         # Preprocessing all irrelevant pixels
         target_pixels = [(i, j) for i in range(self.texture_width) for j in range(self.texture_height)]
-        if self._render:
-            for side in self.profile:
-                target_pixels = [i for i in target_pixels if i not in self.profile[side]]
-            irr_color = self._get_color((0, 0, 0))
-            front_color = (0.75, 0.75, 0.75) if self._color_mode == 'RGB' else (1, 1, 1)
-            front_color = self._get_color(front_color)
-            back_color = self._get_color((0, 1, 0))
-            # front_color = back_color = irr_color = _get_color((0.75, 0.75, 0.75))  # _get_color((1, 1, 1))
-            self.color_setter.init_part(irr_color, target_pixels)
-            self.color_setter.init_part(back_color, self.profile[Side.back])
-            self.color_setter.init_part(front_color, self.profile[Side.front])
+        
+        for side in self.profile:
+            target_pixels = [i for i in target_pixels if i not in self.profile[side]]
+        irr_color = self._get_color((0, 0, 0))
+        front_color = (0.75, 0.75, 0.75) if self._color_mode == 'RGB' else (1, 1, 1)
+        front_color = self._get_color(front_color)
+        back_color = self._get_color((0, 1, 0))
+        # front_color = back_color = irr_color = _get_color((0.75, 0.75, 0.75))  # _get_color((1, 1, 1))
+        self.color_setter.init_part(irr_color, target_pixels)
+        self.color_setter.init_part(back_color, self.profile[Side.back])
+        self.color_setter.init_part(front_color, self.profile[Side.front])
         # _get_texture_image(self.texels, self.texture_width, self.texture_height).show()
-        else:
-            color = self._get_color((0, 0, 0))
-            for point in target_pixels:
-                self.color_setter.change_pixel(*point)
 
     def _build_kd_tree(self):
         """
@@ -872,8 +867,6 @@ class Part:
         end_point = [a + b for a, b in zip(point, normal)]
         result = rayTestBatch([point], [end_point])
         if not result[0][0] == self.urdf_id:
-            if self._render:
-                print('Error in Ray Test!!!')
             return None, normal
         surface_point = result[0][3]
         pos, orn = self._get_hook_point(surface_point, self.side)
@@ -1324,12 +1317,12 @@ def _cache_texture(urdf_obj, obj_path, texture_path):
         _cache_obj(urdf_obj, obj_path)
 
 
-def load_part(urdf_id, render, obs_mode, obs_grad, color_mode, path, side, color):
+def load_part(urdf_id, obs_mode, obs_grad, color_mode, path, side, color):
     try:
         obj_file_path, texture_file_path = _retrieve_related_file_path(path)
         if not texture_file_path:
             raise FileNotFoundError('Make sure that the .obj file is processed by Blender!')
-        _urdf_cache[urdf_id] = Part(urdf_id, render, obs_mode, obs_grad, color_mode, side, color)
+        _urdf_cache[urdf_id] = Part(urdf_id, obs_mode, obs_grad, color_mode, side, color)
         _cache_texture(_urdf_cache[urdf_id], obj_file_path, texture_file_path)
     except error as e:
         print(str(e))
