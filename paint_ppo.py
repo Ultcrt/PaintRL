@@ -154,7 +154,7 @@ def main(algorithm, config):
         if args.restore:
             experiment_config['paint']['restore'] = args.restore
 
-        ray.init(object_store_memory=1 * 1024 * 1024 * 1024, redis_max_memory=1 * 1024 * 1024 * 1024, log_to_driver=False)
+        ray.init(object_store_memory=40 * 1024 * 1024 * 1024, redis_max_memory=2 * 1024 * 1024 * 1024, log_to_driver=True)
         # ray.init(redis_address="141.3.81.143:6379")
 
         experiment_config['paint']['config']['env_config'] = _make_env_config()
