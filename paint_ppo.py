@@ -145,7 +145,8 @@ def main(algorithm, config):
                 'timesteps_total': 2000000,
             },
             'config': config,
-            'checkpoint_freq': 10,
+            'checkpoint_freq': 200,
+            'checkpoint_at_end': True
         }
     }
     experiment_config['paint']['config']['callbacks'] = call_backs
