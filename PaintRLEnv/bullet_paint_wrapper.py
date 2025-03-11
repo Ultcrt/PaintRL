@@ -39,7 +39,7 @@ def normalize(v, tolerance=0.00001):
 
 class PaintToolProfile:
     """The profile of the paint gun, static"""
-    PAINT_RADIUS = 0.075
+    PAINT_RADIUS = 0.055
     STEP_SIZE = PAINT_RADIUS
 
 
