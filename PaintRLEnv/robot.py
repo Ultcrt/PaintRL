@@ -402,7 +402,7 @@ class Robot:
         possible_pixels = []
         succeeded_counter = 0
         self.traj.append(np.hstack(list(poses.values())[0]))
-        self.traj.append(np.hstack(list(poses.values())[0]))
+        self.traj.append(np.hstack(list(poses.values())[-1]))
         for a, pos_orn in zip(act, poses.values()):
             if self._with_robot:
                 p.setJointMotorControlArray(self.robot_id, self._joint_indices, p.POSITION_CONTROL, a,
