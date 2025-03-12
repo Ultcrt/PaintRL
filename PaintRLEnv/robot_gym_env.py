@@ -229,6 +229,7 @@ class PaintGymEnv(gym.Env):
         self.replay_buffer = []
 
         self.rolloutNum = 0
+        self.timer = None
 
     def __enter__(self):
         self.reset()
@@ -349,6 +350,8 @@ class PaintGymEnv(gym.Env):
             return [2 * action / self.action_space.n]
 
     def step(self, action):
+        if not self.timer:
+            self.timer = time.time()
         p_action = self._preprocess_action(action)
         paint_succeed_rate, succeeded_counter = self.robot.apply_action(p_action, self._part_id)
         reward = self._reward(succeeded_counter)
@@ -369,6 +372,8 @@ class PaintGymEnv(gym.Env):
                     print(self.replay_buffer)
                     np.savetxt(os.path.join("predictions", os.path.splitext(self._part_name)[0] + "_" + str(self.rolloutNum) + ".txt"), self.robot.traj)
                     self.rolloutNum += 1
+                    print("Rollout time used:", time.time() - self.timer)
+                    self.timer = time.time()
         return observation, actual_reward, done,  {'reward': reward, 'penalty': penalty}
 
     def reset(self):
